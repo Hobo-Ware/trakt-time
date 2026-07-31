@@ -28,7 +28,12 @@
     fetchNextPage: fetchOlderHistory,
   } = useRecentlyWatchedList({ type: 'episode', limit: 10 });
 
-  type WatchNextGroup = { label: string; items: UpNextEntry[] };
+  // Keyed on the id, not the label: translations are not guaranteed distinct.
+  type WatchNextGroup = {
+    id: 'watch-next' | 'start-watching' | 'dormant';
+    label: string;
+    items: UpNextEntry[];
+  };
 
   const groups = $derived.by<WatchNextGroup[]>(() => {
     const watchNext: UpNextEntry[] = [];
@@ -50,16 +55,17 @@
 
     const result: WatchNextGroup[] = [];
     if (watchNext.length > 0) {
-      result.push({ label: m.header_watch_next(), items: watchNext });
+      result.push({ id: 'watch-next', label: m.header_watch_next(), items: watchNext });
     }
     if (startWatching.length > 0) {
       result.push({
+        id: 'start-watching',
         label: m.header_start_watching(),
         items: startWatching,
       });
     }
     if (dormant.length > 0) {
-      result.push({ label: m.header_dormant_shows(), items: dormant });
+      result.push({ id: 'dormant', label: m.header_dormant_shows(), items: dormant });
     }
     return result;
   });
@@ -115,7 +121,7 @@
       {/each}
     {/if}
 
-    {#each groups as group, groupIndex (group.label)}
+    {#each groups as group, groupIndex (group.id)}
       {#if groupIndex === 0}
         <div class="watch-next-anchor" bind:this={watchNextAnchor}>
           <GroupHeader label={group.label} />
