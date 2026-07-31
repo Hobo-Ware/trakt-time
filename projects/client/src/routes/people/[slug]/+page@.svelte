@@ -99,7 +99,7 @@
         <section class="person-section">
           <h2 class="section-title">{m.page_title_shows()}</h2>
           <div class="poster-row" role="list">
-            {#each showCredits as credit (credit.key)}
+            {#each showCredits as credit, i (`${credit.key}-${i}`)}
               {#if credit.media.type === 'show'}
                 <PosterCard
                   type="show"
@@ -118,7 +118,7 @@
         <section class="person-section">
           <h2 class="section-title">{m.page_title_movies()}</h2>
           <div class="poster-row" role="list">
-            {#each movieCredits as credit (credit.key)}
+            {#each movieCredits as credit, i (`${credit.key}-${i}`)}
               {#if credit.media.type === 'movie'}
                 <PosterCard
                   type="movie"
