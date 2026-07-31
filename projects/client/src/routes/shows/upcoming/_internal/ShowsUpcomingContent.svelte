@@ -28,7 +28,7 @@
     return new Intl.DateTimeFormat(locale, { month: 'short', day: 'numeric' }).format(date).toUpperCase();
   }
 
-  type EpisodeGroup = { label: string; items: UpcomingEpisodeEntry[] };
+  type EpisodeGroup = { key: string; label: string; items: UpcomingEpisodeEntry[] };
 
   const groups = $derived.by<EpisodeGroup[]>(() => {
     const entries = $query.data ?? [];
@@ -41,7 +41,9 @@
       grouped.set(key, bucket);
     }
 
+    // Key on the day, not the label: anything already aired labels as TODAY.
     return [...grouped.entries()].map(([key, items]) => ({
+      key,
       label: toGroupLabel(key),
       items,
     }));
@@ -58,7 +60,7 @@
       <p>No upcoming episodes in the next {DAYS_TO_FETCH} days.</p>
     </div>
   {:else}
-    {#each groups as group (group.label)}
+    {#each groups as group (group.key)}
       <GroupHeader label={group.label} />
       {#each group.items as entry (entry.id)}
         <UpcomingEpisodeCard {entry} />
