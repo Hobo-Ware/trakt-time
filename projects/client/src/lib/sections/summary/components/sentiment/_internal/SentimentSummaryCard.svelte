@@ -29,7 +29,7 @@
   <div class="sentiment-summary-body">
     <span class="sentiment-summary-verdict">{text}</span>
     <ul>
-      {#each aspects as aspect (aspect)}
+      {#each aspects as aspect, i (`${aspect}-${i}`)}
         <li>{aspect}</li>
       {/each}
     </ul>

@@ -40,7 +40,7 @@
       aria-label={m.button_label_view_trivia()}
     >
       <ul class="trivia-summary-list">
-        {#each visibleFacts as fact (fact)}
+        {#each visibleFacts as fact, i (`${fact}-${i}`)}
           <li>
             <SparkleIcon />
             <div class="trivia-summary-fact">

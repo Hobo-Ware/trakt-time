@@ -12,7 +12,7 @@
 
 {#if visible.length > 0}
   <div class="summary-genres" role="list">
-    {#each visible as genre (genre)}
+    {#each visible as genre, i (`${genre}-${i}`)}
       <span class="summary-genre-pill" role="listitem">
         {toTranslatedGenre(genre)}
       </span>

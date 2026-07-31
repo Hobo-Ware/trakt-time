@@ -28,7 +28,7 @@
       <div class="sentiment-aspect-group" style="--sentiment-color: {sentimentColor}">
         <SentimentIcon {sentiment} />
         <ul>
-          {#each aspects as aspect (aspect)}
+          {#each aspects as aspect, i (`${aspect}-${i}`)}
             <li>{aspect}</li>
           {/each}
         </ul>

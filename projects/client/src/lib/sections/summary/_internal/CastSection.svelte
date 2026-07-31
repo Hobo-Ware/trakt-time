@@ -26,7 +26,7 @@
     </div>
   {:else if cast.length > 0}
     <div class="cast-row" role="list">
-      {#each cast as member (member.key)}
+      {#each cast as member, i (`${member.key}-${i}`)}
         <a href="/people/{member.key}" class="cast-member">
           <div class="cast-avatar">
             {#if member.headshot.url.thumb}
